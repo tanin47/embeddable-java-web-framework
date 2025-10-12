@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dracula">
+<head>
+  <title>Embeddable Java Web Framework</title>
+  <link rel="stylesheet" href="/assets/stylesheets/tailwindbase.css">
+  <link rel="shortcut icon" type="image/png" href="/assets/images/logo.png">
+</head>
+<body>
+  <script src="/assets/svelte/index.js"></script>
+  <link rel="stylesheet" href="/assets/svelte/home/index.css">
+  <div id="app"></div>
+
+  <script>
+    new Index.default({target: document.getElementById('app')});
+  </script>
+</body>
+</html>
