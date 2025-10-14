@@ -17,10 +17,11 @@ libraryDependencies ++= Seq(
 Compile / packageDoc / publishArtifact := false
 Compile / doc / sources := Seq.empty
 
-assembly / mainClass := Some("tanin.ejwf.Main")
 
 publish / skip := true
 
+Compile / run / mainClass := Some("tanin.ejwf.Main")
+assembly / mainClass := Some("tanin.ejwf.Main")
 assembly / assemblyJarName := "ejwf.jar"
 
 ThisBuild / assemblyMergeStrategy := {

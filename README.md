@@ -22,7 +22,9 @@ How to develop
 ---------------
 
 1. Run `npm install` to install all dependencies.
-2. Run `sbt run` in order to run the web server.
+2. Run `sbt ~reStart` in order to run the web server with hot-reload enabled on the Java side.
+  * Most changes will hot-reload just fine. There might be occasional cases where you may have to restart the command.
+  * A non-hot-reload alternative is `sbt run`.
 3. On a separate terminal, run `npm run hmr` in order to hot-reload the frontend code changes.
 
 
