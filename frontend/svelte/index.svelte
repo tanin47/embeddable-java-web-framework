@@ -1,4 +1,5 @@
 <script lang="ts">
+import Button from './_button.svelte'
 
 let title = "Embeddable Java Web Framework.";
 let description = "Zero Dependencies. Small footprint (500K). Support Typescripts and Svelte. Great for embedding a website on other large systems.";
@@ -10,6 +11,7 @@ let description = "Zero Dependencies. Small footprint (500K). Support Typescript
     <h1 class="text-2xl font-bold">{title}</h1>
   </div>
   <p>{description}</p>
+  <Button />
 </div>
 
 <style lang="scss">
