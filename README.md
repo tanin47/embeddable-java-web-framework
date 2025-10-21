@@ -2,15 +2,16 @@ Embeddable Java Web Framework
 ==============================
 
 Embeddable Java Web Framework (EJWF) is a Java project template for building a website with a tiny footprint. 
-It is suitable for <ins>a sidecar-style website embeddable on a larger system</ins> and a standalone lightweight website.
+It is suitable for <ins>a sidecar-style website embeddable on a larger JVM system</ins> and a standalone lightweight website.
 
 The main selling point of EJWF is that it comes with productive and useful conventions and libraries such as:
 
 1. Support Typescripts + Svelte + Tailwind + DaisyUI with Hot-Reload Module (HMR).
-2. Support packaging a fat JAR with [shading](https://stackoverflow.com/questions/13620281/what-is-the-maven-shade-plugin-used-for-and-why-would-you-want-to-relocate-java). 
+2. Support hot-reloading Java through the plugin sbt-revolver.
+3. Support packaging a fat JAR with [shading](https://stackoverflow.com/questions/13620281/what-is-the-maven-shade-plugin-used-for-and-why-would-you-want-to-relocate-java). 
    The JAR is 350KB in size, has *zero* external dependencies, and eliminates any potential dependency conflict when embedding into another JVM system.
-3. Support Proguard that can reduce the JAR size to be even smaller.
 4. Avoid Java reflection and magic. This is largely a feature of [Minum](https://github.com/byronka/minum). Any potential runtime errors and conflicts are minimized, which is important when embedding into a larger system.
+5. Browser tests are setup and ready to go.
 
 In contrast, most of the lightweight web frameworks focus on being a bare metal web server serving HTML and JSON. 
 They don't provide support for any frontend framework like React or Svelte; you would have to do it yourself. This is exactly what EJWF provides.
