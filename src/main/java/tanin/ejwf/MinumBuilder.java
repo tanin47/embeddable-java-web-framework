@@ -50,6 +50,7 @@ public class MinumBuilder {
 
         var props = new Properties();
         props.setProperty("SERVER_PORT", "" + port);
+        props.setProperty("LOG_LEVELS", "ASYNC_ERROR,AUDIT");
 
         var context = new Context(Executors.newVirtualThreadPerTaskExecutor(), new Constants(props));
         var logger = new Logger(context.getConstants(), context.getExecutorService(), "primary logger");

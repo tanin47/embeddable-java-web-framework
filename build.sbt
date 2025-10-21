@@ -12,6 +12,9 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 autoScalaLibrary := false
 libraryDependencies ++= Seq(
   "com.renomad" % "minum" % "8.2.0",
+  "org.junit.jupiter" % "junit-jupiter" % "6.0.0" % Test,
+  "org.seleniumhq.selenium" % "selenium-java" % "4.36.0" % Test,
+  "com.github.sbt.junit" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test
 )
 
 Compile / packageDoc / publishArtifact := false
