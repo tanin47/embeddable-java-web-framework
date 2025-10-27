@@ -84,13 +84,15 @@ FAQ
 
 ### Why is Minum chosen? 
 
-Minum is the smallest web framework written in pure Java. One of its goals is to avoid reflection and magic, which is great for embeddability.
+Minum is the smallest web framework written in pure Java with *zero* dependencies. One of its goals is to avoid reflection and magic, which is great for embeddability.
 
 I've looked at a couple other options:
 
 * Javalin requires Kotlin runtime, which adds 2-3MB to the JAR.
 * Vert.x is not a minimal web framework. It focuses on reactivity.
 * Blade is comparable but doesn't seem to focus on avoiding reflection and magic.
+
+The above options also have external dependencies.
 
 ### What if we cannot open another port?
 
