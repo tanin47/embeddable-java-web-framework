@@ -48,10 +48,7 @@ To publish to a Maven repository, please follow the below steps:
 
 1. Remove `./build/staging-deploy` by running `rm -rf ./build/staging-deploy`
 2. Run `./gradlew publish`
-3. Zip the folder: `./build/staging-deploy`
-4. Go to https://central.sonatype.com/publishing and click "Publish Component" and upload the zip file. You can name 
-   the deployment name and description however you like.
-5. Click "Publish" once your uploaded package is validated.
+3. Run `./gradlew jreleaserDeploy`
 
 Embed your website into a larger system
 ----------------------------------------
