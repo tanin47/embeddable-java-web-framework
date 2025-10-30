@@ -23,9 +23,7 @@ How to develop
 ---------------
 
 1. Run `npm install` to install all dependencies.
-2. Run `sbt ~reStart` in order to run the web server with hot-reload enabled on the Java side.
-  * Most changes will hot-reload just fine. There might be occasional cases where you may have to restart the command.
-  * A non-hot-reload alternative is `sbt run`.
+2. Run `./gradlew run` to run the web server.
 3. On a separate terminal, run `npm run hmr` in order to hot-reload the frontend code changes.
 
 
@@ -37,21 +35,23 @@ each build process and are able to customize to your needs.
 
 Here's how you can build your fat JAR:
 
-1. Build the tailwindbase.css with: `./node_modules/.bin/postcss ./frontend/stylesheets/tailwindbase.css --config . --output ./src/main/resources/assets/stylesheets/tailwindbase.css`
-2. Build the production Svelte code with: `ENABLE_SVELTE_CHECK=true ./node_modules/webpack/bin/webpack.js --config ./webpack.config.js --output-path ./src/main/resources/assets --mode production`
-3. Build the fat JAR with: `sbt assembly`
+1. Run `./gradlew clean`. This step is IMPORTANT to clean out the previous versions.
+2. Build the tailwindbase.css with: `./node_modules/.bin/postcss ./frontend/stylesheets/tailwindbase.css --config . --output ./src/main/resources/assets/stylesheets/tailwindbase.css`
+3. Build the production Svelte code with: `ENABLE_SVELTE_CHECK=true ./node_modules/webpack/bin/webpack.js --config ./webpack.config.js --output-path ./src/main/resources/assets --mode production`
+4. Build the fat JAR with: `./gradlew shadowJar`
 
-The far JAR is built at `./target/scala-2.12/ejwf.jar`
+The far JAR is built at `./build/libs/embeddablee-java-web-framework-VERSION.jar`
 
-You can run your server with: `java -jar ejwf.jar tanin.ejwf.Main`
+You can run your server with: `java -jar ./build/libs/embeddablee-java-web-framework-VERSION.jar`
 
 To publish to a Maven repository, please follow the below steps:
 
-1. Go into the SBT console by running `sbt`
-2. Switch to the fatJar project by running `project fatJar`
-3. Run `publishSigned`
-4. Run `sonaUpload`
-5. Go to https://central.sonatype.com and click "Publish"
+1. Remove `./build/staging-deploy` by running `rm -rf ./build/staging-deploy`
+2. Run `./gradlew publish`
+3. Zip the folder: `./build/staging-deploy`
+4. Go to https://central.sonatype.com/publishing and click "Publish Component" and upload the zip file. You can name 
+   the deployment name and description however you like.
+5. Click "Publish" once your uploaded package is validated.
 
 Embed your website into a larger system
 ----------------------------------------
