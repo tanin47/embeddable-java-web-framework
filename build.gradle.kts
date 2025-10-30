@@ -1,7 +1,10 @@
+import org.jreleaser.model.Active
+
 plugins {
     `java-library`
     application
     `maven-publish`
+    id("org.jreleaser") version "1.20.0"
     id("com.gradleup.shadow") version "9.2.2"
 }
 
@@ -83,6 +86,24 @@ publishing {
     repositories {
         maven {
             url = uri(layout.buildDirectory.dir("staging-deploy"))
+        }
+    }
+}
+
+jreleaser {
+    signing {
+        active = Active.ALWAYS
+        armored = true
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                create("sonatype") {
+                    setActive("ALWAYS")
+                    url = "https://central.sonatype.com/api/v1/publisher"
+                    stagingRepository("build/staging-deploy")
+                }
+            }
         }
     }
 }
