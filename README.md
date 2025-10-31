@@ -42,13 +42,14 @@ Here's how you can build your fat JAR:
 
 The far JAR is built at `./build/libs/embeddablee-java-web-framework-VERSION.jar`
 
-You can run your server with: `java -jar ./build/libs/embeddablee-java-web-framework-VERSION.jar`
+You can run your server with: `java -jar ./build/libs/embeddable-java-web-framework-VERSION.jar`
 
 To publish to a Maven repository, please follow the below steps:
 
 1. Remove `./build/staging-deploy` by running `rm -rf ./build/staging-deploy`
 2. Run `./gradlew publish`
-3. Run `./gradlew jreleaserDeploy`
+3. Set up `~/.jreleaser/config.toml` with `JRELEASER_MAVENCENTRAL_USERNAME` and `JRELEASER_MAVENCENTRAL_PASSWORD`
+4. Run `./gradlew jreleaserDeploy`
 
 Embed your website into a larger system
 ----------------------------------------
