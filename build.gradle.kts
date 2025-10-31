@@ -1,15 +1,16 @@
 import org.jreleaser.model.Active
+import org.jreleaser.model.Signing.Mode
 
 plugins {
     `java-library`
     application
     `maven-publish`
-    id("org.jreleaser") version "1.20.0"
+    id("org.jreleaser") version "1.21.0"
     id("com.gradleup.shadow") version "9.2.2"
 }
 
 group = "tanin.ejwf"
-version = "0.3.0"
+version = "0.4.0"
 
 description = "Embeddable Java Web Framework (EJWF)"
 
@@ -92,6 +93,7 @@ publishing {
 
 jreleaser {
     signing {
+        mode = Mode.COMMAND
         active = Active.ALWAYS
         armored = true
     }
