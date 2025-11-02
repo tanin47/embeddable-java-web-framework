@@ -1,6 +1,8 @@
 Embeddable Java Web Framework
 ==============================
 
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/io.github.tanin47/embeddable-java-web-framework/badge.png?8cb1875)](https://central.sonatype.com/artifact/io.github.tanin47/embeddable-java-web-framework)
+
 Embeddable Java Web Framework (EJWF) is a Java project template for building a website with a tiny footprint. 
 It is suitable for <ins>a sidecar-style website embeddable on a larger JVM system</ins> and a standalone lightweight website.
 
