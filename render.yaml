@@ -4,8 +4,8 @@ services:
     plan: free
     runtime: image
     image:
-      url: docker.io/tanin47/embeddable-java-web-framework:v1.0.0-rc1
-    dockerCommand: java -jar embeddable-java-web-framework-1.0.0-rc1.jar
+      url: docker.io/tanin47/embeddable-java-web-framework:v1.0.0
+    dockerCommand: java -jar embeddable-java-web-framework-1.0.0.jar
     healthCheckPath: /healthcheck
     envVars:
       - key: PORT
