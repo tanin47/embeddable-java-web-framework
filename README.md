@@ -56,11 +56,11 @@ Publish Docker
 
 This flow has been set up as a part of the Github Actions workflow: `create-release-and-docker`.
 
-1. Run `docker buildx build --platform linux/amd64,linux/arm64 -t embeddable-java-web-framework:v0.4.0 .`
+1. Run `docker buildx build --platform linux/amd64,linux/arm64 -t embeddable-java-web-framework:v1.0.0-rc1 .`
 2. Test locally with:
-   `docker run -p 9090:9090 --entrypoint "" embeddable-java-web-framework:v0.4.0 java -jar embeddable-java-web-framework-0.4.0.jar -port 9090`
-3. Run: `docker tag embeddable-java-web-framework:v0.4.0 tanin47/embeddable-java-web-framework:v0.4.0`
-4. Run: `docker push tanin47/embeddable-java-web-framework:v0.4.0`
+   `docker run -p 9090:9090 --entrypoint "" embeddable-java-web-framework:v1.0.0-rc1 java -jar embeddable-java-web-framework-1.0.0-rc1.jar -port 9090`
+3. Run: `docker tag embeddable-java-web-framework:v1.0.0-rc1 tanin47/embeddable-java-web-framework:v1.0.0-rc1`
+4. Run: `docker push tanin47/embeddable-java-web-framework:v1.0.0-rc1`
 5. Go to Render.com, sync the blueprint, and test that it works
 
 Release a new version
@@ -69,7 +69,7 @@ Release a new version
 1. Create an empty release with a new tag. The tag must follow the format: `vX.Y.Z`.
 2. Go to Actions and wait for the `create-release-and-docker` (which is triggered automatically) workflow to finish.
 3. Test the docker with
-   `docker run -p 9090:9090 --entrypoint "" tanin47/embeddable-java-web-framework:v0.4.0 java -jar embeddable-java-web-framework-0.4.0.jar -port 9090`.
+   `docker run -p 9090:9090 --entrypoint "" tanin47/embeddable-java-web-framework:v1.0.0-rc1 java -jar embeddable-java-web-framework-1.0.0-rc1.jar -port 9090`.
 4. Go to Actions and trigger the workflow `publish-jar` on the tag `vX.Y.Z` in order to publish the JAR to Central
    Sonatype.
 
