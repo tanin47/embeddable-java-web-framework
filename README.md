@@ -1,7 +1,10 @@
 Embeddable Java Web Framework
 ==============================
 
-[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/io.github.tanin47/embeddable-java-web-framework/badge.png?8cb1875)](https://central.sonatype.com/artifact/io.github.tanin47/embeddable-java-web-framework)
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/io.github.tanin47/embeddable-java-web-framework/badge.svg)](https://central.sonatype.com/artifact/io.github.tanin47/embeddable-java-web-framework)
+![Github Actions](https://github.com/tanin47/embeddable-java-web-framework/actions/workflows/ci.yml/badge.svg?branch=main)
+[![codecov](https://codecov.io/gh/tanin47/embeddable-java-web-framework/graph/badge.svg?token=BGQU70MAUP)](https://codecov.io/gh/tanin47/embeddable-java-web-framework)
+
 
 Embeddable Java Web Framework (EJWF) is a Java project template for building a website with a tiny footprint. 
 It is suitable for <ins>a sidecar-style website embeddable on a larger JVM system</ins> and a standalone lightweight website.
@@ -18,7 +21,7 @@ The main selling point of EJWF is that it comes with productive and useful conve
 In contrast, most of the lightweight web frameworks focus on being a bare metal web server serving HTML and JSON. 
 They don't provide support for any frontend framework like React or Svelte; you would have to do it yourself. This is exactly what EJWF provides.
 
-Initially, EJWF was built as a foundation for [embeddable-java-web-framework](https://github.com/tanin47/embeddable-java-web-framework), a self-hosted database querying and editing tool, where
+Initially, EJWF was built as a foundation for [Backdoor](https://github.com/tanin47/backdoor), a self-hosted database querying and editing tool, where
 you can embed it into your larger application like SpringBoot or PlayFramework.
 
 How to develop
@@ -73,8 +76,46 @@ Release a new version
 4. Go to Actions and trigger the workflow `publish-jar` on the tag `vX.Y.Z` in order to publish the JAR to Central
    Sonatype.
 
-Embed your website into a larger system
-----------------------------------------
+How to run
+------------
+
+There are 2 ways to run EWJF:
+
+1. Run as a standalone: JAR, Docker, and Render.com
+2. Embed your website into a larger system
+
+### 1. Run as a standalone
+
+__<ins>Run from the JAR file</ins>__
+
+First, you can download the `embeddable-java-web-framework-VERSION.jar` file from
+the [Releases](https://github.com/tanin47/embeddable-java-web-framework/releases) page.
+
+Then, you can run the command below:
+
+```
+java -jar embeddable-java-web-framework-1.0.0-rc1.jar
+```
+
+Then, you can visit http://localhost:9090 
+
+__<ins>Use Docker</ins>__
+
+The docker image is here: https://hub.docker.com/repository/docker/tanin47/embeddable-java-web-framework
+
+```
+docker run -p 9090:9090 \
+           --entrypoint "" \
+           --pull always \
+           tanin47/embeddable-java-web-framework:v1.0.0-rc1 \
+           java -jar embeddable-java-web-framework-1.0.0-rc1.jar
+```
+
+__<ins>Use Render.com</ins>__
+
+The file [render.yaml](./render.yaml) shows a blueprint example of how to run EWJF on Render.
+
+### 2. Embed your website into a larger system
 
 After you've built your application on top of this framework and publish your fat jar,
 your customer can follow the below steps in order to embed your website into their applications.
@@ -85,10 +126,9 @@ your customer can follow the below steps in order to embed your website into the
 <dependency>
     <groupId>io.github.tanin47</groupId>
     <artifactId>embeddable-java-web-framework</artifactId>
-    <version>0.1.1</version>
+    <version>1.0.0-rc1</version>
 </dependency>
 ```
-
 
 2. Instantiate the website with the port 9090 when the larger system initializes:
 
