@@ -118,9 +118,12 @@ publishing {
 
 jreleaser {
     signing {
-        mode = Mode.COMMAND
         active = Active.ALWAYS
         armored = true
+        mode = if (System.getenv("CI") != null) Mode.MEMORY else Mode.COMMAND
+        command {
+            executable = "/opt/homebrew/bin/gpg"
+        }
     }
     deploy {
         maven {
@@ -190,4 +193,11 @@ tasks.shadowJar {
 
 tasks.jar {
     manifest.attributes["Main-Class"] = "tanin.ejwf.Main"
+}
+
+// For CI validation.
+tasks.register("printVersion") {
+    doLast {
+        print("$version")
+    }
 }
