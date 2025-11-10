@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: embeddable-java-web-framework
+    plan: free
+    runtime: image
+    image:
+      url: docker.io/tanin47/embeddable-java-web-framework:v1.0.0-rc1
+    dockerCommand: java -jar embeddable-java-web-framework:v1.0.0-rc1.jar
+    healthCheckPath: /healthcheck
+    envVars:
+      - key: PORT
+        value: 9090
+    autoDeploy: true
