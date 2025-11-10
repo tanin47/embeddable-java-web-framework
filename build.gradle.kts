@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jreleaser.model.Active
 import org.jreleaser.model.Signing.Mode
 
@@ -5,12 +6,13 @@ plugins {
     `java-library`
     application
     `maven-publish`
+    jacoco
     id("org.jreleaser") version "1.21.0"
     id("com.gradleup.shadow") version "9.2.2"
 }
 
 group = "tanin.ejwf"
-version = "0.4.0"
+version = "1.0.0-rc1"
 
 description = "Embeddable Java Web Framework (EJWF)"
 
@@ -26,6 +28,16 @@ java {
                 srcDir("build/compiled-frontend-resources")
             }
         }
+    }
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
+
+    reports {
+        xml.required = true
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
     }
 }
 
@@ -47,8 +59,14 @@ tasks.named<Test>("test") {
     maxHeapSize = "1G"
 
     testLogging {
-        events("passed")
+        events("started", "passed", "skipped", "failed")
+        showStandardStreams = true
+        showStackTraces = true
+        showExceptions = true
+        showCauses = true
+        exceptionFormat = TestExceptionFormat.FULL
     }
+
 }
 
 application {

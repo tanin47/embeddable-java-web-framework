@@ -1,0 +1,87 @@
+name: create-release-and-docker
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Optional tag. Default to the tag of the selected branch.'
+        required: false
+        type: string
+
+
+permissions:
+  contents: write
+
+jobs:
+  create-release-and-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref_name }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: 'gradle'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+      - name: Get version
+        id: version
+        run: echo "VERSION=$(./gradlew -q printVersion)" >> "$GITHUB_OUTPUT"
+      - name: Validate the tag name
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ] && [ ! -z "${{ github.event.inputs.tag }}" ]; then
+            TAG=${{ github.event.inputs.tag }}
+          else
+            TAG=${GITHUB_REF#refs/tags/}
+          fi
+          if [[ ! "$TAG" =~ ^v ]]; then
+            echo "Error: Tag must start with 'v'"
+            exit 1
+          fi
+          TAG_VERSION=${TAG#v}
+          if [ "$TAG_VERSION" != "${{ steps.version.outputs.VERSION }}" ]; then
+            echo "Error: Git tag version ($TAG_VERSION) doesn't match project version (v${{ steps.version.outputs.VERSION }})"
+            exit 1
+          fi
+      - name: Install Node modules
+        run: npm install
+      - name: Build a publishable JAR
+        run: ./gradlew clean publish
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          prerelease: true
+          files: ./build/staging-deploy/io/github/tanin47/embeddable-java-web-framework/**/*
+          overwrite_files: true
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+          tag_name: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref_name }}
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and push Docker image
+        id: push
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          platforms: linux/amd64,linux/arm64
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: tanin47/embeddable-java-web-framework:${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref_name }}
