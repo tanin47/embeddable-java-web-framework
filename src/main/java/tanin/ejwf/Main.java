@@ -3,8 +3,10 @@ package tanin.ejwf;
 
 import com.renomad.minum.web.FullSystem;
 import com.renomad.minum.web.Response;
+import com.renomad.minum.web.StatusLine;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
@@ -47,6 +49,14 @@ public class Main {
         logger.info("Serve /");
         String content = new String(Main.class.getResourceAsStream("/html/index.html").readAllBytes());
         return Response.htmlOk(content);
+      }
+    );
+
+    wf.registerPath(
+      GET,
+      "healthcheck",
+      req -> {
+        return Response.buildResponse(StatusLine.StatusCode.CODE_200_OK, Map.of("Content-Type", "text/plain"), "OK EWJF");
       }
     );
   }

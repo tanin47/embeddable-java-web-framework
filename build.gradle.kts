@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "tanin.ejwf"
-version = "1.0.0-rc1"
+version = "1.0.0-rc2"
 
 description = "Embeddable Java Web Framework (EJWF)"
 
