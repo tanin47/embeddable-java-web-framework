@@ -38,6 +38,9 @@ public class Base {
     }
     var options = new ChromeOptions();
 
+    if (System.getenv("HEADLESS") != null) {
+      options.addArguments("--headless");
+    }
     options.addArguments("--guest");
     options.addArguments("--disable-extensions");
     options.addArguments("--disable-web-security");
