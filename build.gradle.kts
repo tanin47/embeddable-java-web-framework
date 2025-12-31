@@ -46,7 +46,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.renomad:minum:8.2.0")
+    implementation("com.renomad:minum:8.3.2")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
