@@ -7,8 +7,8 @@ plugins {
     application
     `maven-publish`
     jacoco
-    id("org.jreleaser") version "1.21.0"
-    id("com.gradleup.shadow") version "9.2.2"
+    id("org.jreleaser") version "1.27.0"
+    id("com.gradleup.shadow") version "9.6.1"
 }
 
 group = "tanin.ejwf"
@@ -46,11 +46,11 @@ repositories {
 }
 
 dependencies {
-    implementation("com.renomad:minum:8.3.2")
+    implementation("com.renomad:minum:11.0.4")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:6.1.3")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    testImplementation("org.seleniumhq.selenium:selenium-java:4.36.0")
+    testImplementation("org.seleniumhq.selenium:selenium-java:4.52.0")
 }
 
 tasks.named<Test>("test") {
