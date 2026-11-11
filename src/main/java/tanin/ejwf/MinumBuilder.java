@@ -12,8 +12,6 @@ import java.io.UncheckedIOException;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executors;
@@ -42,7 +40,7 @@ public class MinumBuilder {
   }
 
 
-  public static final boolean IS_LOCAL_DEV = Files.exists(Path.of("local_dev_marker.ejwf"));
+  public static final boolean IS_LOCAL_DEV = "true".equalsIgnoreCase(System.getenv("EJWF_LOCAL_DEV"));
 
   public static FullSystem build(int port) {
     if (IS_LOCAL_DEV) {
@@ -55,6 +53,7 @@ public class MinumBuilder {
     props.setProperty("SERVER_PORT", "" + port);
     props.setProperty("LOG_LEVELS", "ASYNC_ERROR,AUDIT");
     props.setProperty("IS_THE_BRIG_ENABLED", "false");
+    props.setProperty("ENABLE_SYSTEM_RUNNING_MARKER", "false");
 
     var executor = Executors.newVirtualThreadPerTaskExecutor();
     var constants = new Constants(props);

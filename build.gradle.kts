@@ -58,6 +58,8 @@ tasks.named<Test>("test") {
 
     maxHeapSize = "1G"
 
+    environment("EJWF_LOCAL_DEV", "true")
+
     testLogging {
         events("started", "passed", "skipped", "failed")
         showStandardStreams = true
@@ -71,6 +73,10 @@ tasks.named<Test>("test") {
 
 application {
     mainClass.set("tanin.ejwf.Main")
+}
+
+tasks.named<JavaExec>("run") {
+    environment("EJWF_LOCAL_DEV", "true")
 }
 
 publishing {
@@ -187,7 +193,6 @@ tasks.shadowJar {
     archiveClassifier.set("") // Remove the suffix -all.
     relocate("com", "tanin.ejwf.com")
     exclude("META-INF/MANIFEST.MF")
-    exclude("local_dev_marker.ejwf")
 
 }
 
