@@ -7,6 +7,8 @@ import com.renomad.minum.web.FullSystem;
 import com.renomad.minum.web.Response;
 import com.renomad.minum.web.StatusLine;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -149,14 +151,22 @@ public class MinumBuilder {
       );
     }
 
-    Runtime.getRuntime().addShutdownHook(new Thread(minum::shutdown));
+    Runtime.getRuntime().addShutdownHook(new Thread(() -> shutdownQuietly(minum)));
 
     // In SBT console, pressing Ctrl+C only sends SIGINT. Therefore, we have to trigger a shutdown when SIGINT occurs.
     sun.misc.Signal.handle(new sun.misc.Signal("INT"), sig -> {
       logger.info("Received SIGINT signal. Shutting down...");
-      minum.shutdown();
+      shutdownQuietly(minum);
     });
 
     return minum;
+  }
+
+  static void shutdownQuietly(FullSystem minum) {
+    try {
+      minum.shutdown();
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
   }
 }

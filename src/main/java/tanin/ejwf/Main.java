@@ -63,7 +63,7 @@ public class Main {
 
   public void stop() {
     if (minum != null) {
-      minum.shutdown();
+      MinumBuilder.shutdownQuietly(minum);
     }
   }
 }
