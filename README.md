@@ -28,7 +28,7 @@ How to develop
 ---------------
 
 1. Run `npm install` to install all dependencies.
-2. Run `./gradlew run` to run the web server.
+2. Run `./gradlew run` to run the web server. It sets `EJWF_LOCAL_DEV=true`, which turns on the dev mode (hot-reloading).
 3. On a separate terminal, run `npm run hmr` in order to hot-reload the frontend code changes.
 
 
