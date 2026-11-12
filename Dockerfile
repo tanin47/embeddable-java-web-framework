@@ -1,4 +1,4 @@
-FROM eclipse-temurin:25-jdk-jammy
+FROM ibm-semeru-runtimes:open-25-jdk
 
 WORKDIR /app
 
